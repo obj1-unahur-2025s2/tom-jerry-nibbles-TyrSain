@@ -15,3 +15,81 @@ describe "Grupo de test" {
   }
 
 }
+
+ describe "Historia Tom y Jerry" {
+    test "Al inicio, la velocidad máxima de Tom es 10" {
+      assert.equals(10, tom.velocidadMaxima())
+    }
+
+    test "Si come a Jerry, la velocidad máxima pasa a ser  15.2" {
+      tom.comerRaton(jerry)
+      assert.equals(15.2, tom.velocidadMaxima())
+    }
+
+    test "Si corre 24 metros, entonces su velocidad máxima pasa a ser 14" {
+      tom.comerRaton(jerry)
+      tom.correr(24)
+      assert.equals(14, tom.velocidadMaxima())
+    }
+
+    test "Si come a Nibbles, pasa a tener de velocidad máxima 18.7" {
+      tom.comerRaton(jerry)
+      tom.correr(24)
+      tom.comerRaton(nibbles)
+      assert.equals(18.7, tom.velocidadMaxima())
+    }
+
+    test "si Jerry cumple años (3 años de edad), y luego Tom lo vuelve a comer, pasaría a tener 25.9" {
+      tom.comerRaton(jerry)
+      tom.correr(24)
+      tom.comerRaton(nibbles)
+
+      jerry.cumpleAños()
+      tom.comerRaton(jerry)
+
+      assert.equals(25.9, tom.velocidadMaxima())
+    }
+
+    test "si corre 38 metros su velocidad pasa a ser 24" {
+      tom.comerRaton(jerry)
+      tom.correr(24)
+      tom.comerRaton(nibbles)
+
+      jerry.cumpleAños()
+      tom.comerRaton(jerry)
+
+      tom.correr(38)
+
+      assert.equals(24, tom.velocidadMaxima())
+    }
+
+
+ }
+
+
+describe "Historia Segunda Parte" {
+    test "Ton no puede cazar a Jerry porque esta muy lejos" {
+      tom.reiniciarEstado()
+      assert.notThat(tom.puedeCazar(jerry, 120))
+    }
+
+    test "Tom puede cazar a Nibbles ya que esta cerca" {
+      tom.reiniciarEstado()
+      assert.that(tom.puedeCazar(nibbles, 20))
+    }
+
+    test "Tom se come a Mikey, pero el raton no llego a comerse el queso, por lo que Tom no queda satisfecho" {
+      tom.reiniciarEstado()
+      tom.comerRaton(mikey)
+      assert.notThat(tom.estaSatisfecho())
+    }
+
+    test "Tom se come a Mikey, pero Mikey se comio el queso, por lo que tom queda satisfecho y sin energia" {
+      tom.reiniciarEstado()
+      mikey.comerQueso()
+      tom.comerRaton(mikey)
+      assert.that(tom.estaSatisfecho())
+    }
+
+}
+
